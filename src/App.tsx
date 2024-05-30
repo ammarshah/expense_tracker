@@ -1,8 +1,8 @@
 import Container from "react-bootstrap/Container";
-import ExpenseForm from "./Expense/Form";
 import Card from "react-bootstrap/Card";
-import ExpenseList from "./Expense/List";
-import ExpenseFilter from "./Expense/Filter";
+import ExpenseForm from "./components/Expense/Form";
+import ExpenseList from "./components/Expense/List";
+import ExpenseFilter from "./components/Expense/Filter";
 
 function App() {
   const categories = ["Groceries", "Utilities", "Entertainment"];
