@@ -1,10 +1,17 @@
-import Alert from "react-bootstrap/Alert";
+import Container from "react-bootstrap/Container";
+import ExpenseForm from "./Expense/Form";
+import Card from "react-bootstrap/Card";
 
 function App() {
   return (
-    <Alert key="primary" variant="primary">
-      Hello World!
-    </Alert>
+    <Container className="m-4">
+      <h1 className="text-center">Expense Tracker</h1>
+      <Card>
+        <Card.Body>
+          <ExpenseForm />
+        </Card.Body>
+      </Card>
+    </Container>
   );
 }
 
