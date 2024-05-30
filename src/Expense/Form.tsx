@@ -1,9 +1,11 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function ExpenseForm() {
-  const categories = ["Groceries", "Utilities", "Entertainment"];
+interface Props {
+  categories: string[];
+}
 
+function ExpenseForm({ categories }: Props) {
   return (
     <Form>
       <Form.Group className="mb-3" controlId="item">
