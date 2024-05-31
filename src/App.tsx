@@ -26,6 +26,18 @@ function App() {
     setExpenses(expenses.filter((expense) => expense.id !== id));
   };
 
+  const [selectedCategory, setSelectedCategory] = useState("All categories");
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
+
+  // Filter expenses based on selected category
+  const filteredExpenses =
+    selectedCategory === "All categories"
+      ? expenses
+      : expenses.filter((expense) => expense.category === selectedCategory);
+
   return (
     <Container className="m-4">
       <h1 className="text-center mb-5">Expense Tracker</h1>
@@ -36,9 +48,15 @@ function App() {
       </Card>
       <div className="mt-5">
         <h3>My Expenses</h3>
-        <ExpenseFilter categories={categories} />
+        <ExpenseFilter
+          categories={categories}
+          onCategoryChange={handleCategoryChange}
+        />
         <br />
-        <ExpenseList expenses={expenses} deleteExpense={deleteExpense} />
+        <ExpenseList
+          expenses={filteredExpenses}
+          deleteExpense={deleteExpense}
+        />
       </div>
     </Container>
   );
