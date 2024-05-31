@@ -8,6 +8,7 @@ import { Expense } from "./types";
 
 function App() {
   const categories = ["Groceries", "Utilities", "Entertainment"];
+
   const [expenses, setExpenses] = useState<Expense[]>(() => {
     const savedExpenses = localStorage.getItem("expenses");
     return savedExpenses ? JSON.parse(savedExpenses) : [];
@@ -19,6 +20,10 @@ function App() {
 
   const addExpense = (expense: Expense) => {
     setExpenses([...expenses, expense]);
+  };
+
+  const deleteExpense = (id: number) => {
+    setExpenses(expenses.filter((expense) => expense.id !== id));
   };
 
   return (
@@ -33,7 +38,7 @@ function App() {
         <h3>My Expenses</h3>
         <ExpenseFilter categories={categories} />
         <br />
-        <ExpenseList expenses={expenses} />
+        <ExpenseList expenses={expenses} deleteExpense={deleteExpense} />
       </div>
     </Container>
   );

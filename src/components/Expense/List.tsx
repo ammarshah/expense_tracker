@@ -4,9 +4,10 @@ import { Expense } from "../../types";
 
 interface Props {
   expenses: Expense[];
+  deleteExpense: (id: number) => void;
 }
 
-function ExpenseList({ expenses }: Props) {
+function ExpenseList({ expenses, deleteExpense }: Props) {
   return (
     <Table striped bordered hover>
       <thead>
@@ -24,7 +25,12 @@ function ExpenseList({ expenses }: Props) {
             <td>{expense.amount}</td>
             <td>{expense.category}</td>
             <td>
-              <Button variant="outline-danger">Delete</Button>
+              <Button
+                onClick={() => deleteExpense(expense.id)}
+                variant="outline-danger"
+              >
+                Delete
+              </Button>
             </td>
           </tr>
         ))}
