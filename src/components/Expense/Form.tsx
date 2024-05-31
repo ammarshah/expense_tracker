@@ -1,11 +1,13 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Expense } from "../../types";
 
 interface Props {
   categories: string[];
+  addExpense: (expense: Expense) => void;
 }
 
 const schema = z.object({
@@ -18,18 +20,17 @@ const schema = z.object({
   category: z.string().min(1, { message: "Category is required" }),
 });
 
-type FormData = z.infer<typeof schema>;
-
-function ExpenseForm({ categories }: Props) {
+function ExpenseForm({ categories, addExpense }: Props) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<Expense>({ resolver: zodResolver(schema) });
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  const onSubmit = (data: Expense) => {
+    const expense = { ...data, id: Date.now() };
+    addExpense(expense);
     reset(); // reset form state
   };
 
