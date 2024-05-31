@@ -9,9 +9,11 @@ interface Props {
 
 function ExpenseList({ expenses, deleteExpense }: Props) {
   const calculateExpensesTotal = () => {
-    return expenses.reduce((total, expense) => {
-      return total + expense.amount;
-    }, 0);
+    return expenses
+      .reduce((total, expense) => {
+        return total + expense.amount;
+      }, 0)
+      .toFixed(2);
   };
 
   if (expenses.length === 0) {
@@ -44,13 +46,15 @@ function ExpenseList({ expenses, deleteExpense }: Props) {
             </td>
           </tr>
         ))}
-        {expenses && (
-          <tr>
-            <td>Total</td>
-            <td>${calculateExpensesTotal()}</td>
-          </tr>
-        )}
       </tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td>${calculateExpensesTotal()}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
     </Table>
   );
 }

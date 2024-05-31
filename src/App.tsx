@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import { Expense } from "./types";
 
 function App() {
-  const categories = ["Groceries", "Utilities", "Entertainment"];
-
   const [expenses, setExpenses] = useState<Expense[]>(() => {
     const savedExpenses = localStorage.getItem("expenses");
     return savedExpenses ? JSON.parse(savedExpenses) : [];
@@ -43,16 +41,13 @@ function App() {
       <h1 className="text-center mb-5">Expense Tracker</h1>
       <Card>
         <Card.Body>
-          <ExpenseForm categories={categories} addExpense={addExpense} />
+          <ExpenseForm addExpense={addExpense} />
         </Card.Body>
       </Card>
 
       <div className="mt-5">
         <h3>Your expenses</h3>
-        <ExpenseFilter
-          categories={categories}
-          onCategoryChange={handleCategoryChange}
-        />
+        <ExpenseFilter onCategoryChange={handleCategoryChange} />
         <br />
         <ExpenseList
           expenses={filteredExpenses}

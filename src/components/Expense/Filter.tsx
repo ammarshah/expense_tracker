@@ -1,11 +1,11 @@
 import Form from "react-bootstrap/Form";
+import categories from "../../categories";
 
 interface Props {
-  categories: string[];
   onCategoryChange: (category: string) => void;
 }
 
-function ExpenseFilter({ categories, onCategoryChange }: Props) {
+function ExpenseFilter({ onCategoryChange }: Props) {
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {

@@ -4,23 +4,29 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Expense } from "../../types";
+import categories from "../../categories";
 
 interface Props {
-  categories: string[];
   addExpense: (expense: Expense) => void;
 }
 
 const schema = z.object({
   item: z
     .string({ message: "Item is required." })
-    .min(3, { message: "Item should be at least 3 characters." }),
+    .min(3, { message: "Item must be at least 3 characters." })
+    .max(50, { message: "Item must be at most 50 characters." }),
   amount: z
     .number({ invalid_type_error: "Amount is required." })
-    .min(1, { message: "Amount must be at least 1." }),
-  category: z.string().min(1, { message: "Category is required" }),
+    .min(0.01, { message: "Amount must be at least 0.01." })
+    .max(100_000, { message: "Amount must be at most 100,000" }),
+  category: z.enum(categories, {
+    errorMap: () => ({
+      message: "Category is required.",
+    }),
+  }),
 });
 
-function ExpenseForm({ categories, addExpense }: Props) {
+function ExpenseForm({ addExpense }: Props) {
   const {
     register,
     handleSubmit,
@@ -29,8 +35,8 @@ function ExpenseForm({ categories, addExpense }: Props) {
   } = useForm<Expense>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: Expense) => {
-    const expense = { ...data, id: Date.now() };
-    addExpense(expense);
+    const newExpense = { ...data, id: Date.now() };
+    addExpense(newExpense);
     reset(); // reset form state
   };
 
