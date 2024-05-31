@@ -1,7 +1,12 @@
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import { Expense } from "../../types";
 
-function ExpenseList() {
+interface Props {
+  expenses: Expense[];
+}
+
+function ExpenseList({ expenses }: Props) {
   return (
     <Table striped bordered hover>
       <thead>
@@ -13,22 +18,16 @@ function ExpenseList() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Milk</td>
-          <td>5</td>
-          <td>Groceries</td>
-          <td>
-            <Button variant="outline-danger">Delete</Button>
-          </td>
-        </tr>
-        <tr>
-          <td>Bread</td>
-          <td>2</td>
-          <td>Groceries</td>
-          <td>
-            <Button variant="outline-danger">Delete</Button>
-          </td>
-        </tr>
+        {expenses.map((expense) => (
+          <tr key={expense.id}>
+            <td>{expense.item}</td>
+            <td>{expense.amount}</td>
+            <td>{expense.category}</td>
+            <td>
+              <Button variant="outline-danger">Delete</Button>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );
