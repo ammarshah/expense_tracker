@@ -46,8 +46,9 @@ function App() {
           <ExpenseForm categories={categories} addExpense={addExpense} />
         </Card.Body>
       </Card>
+
       <div className="mt-5">
-        <h3>My Expenses</h3>
+        <h3>Your expenses</h3>
         <ExpenseFilter
           categories={categories}
           onCategoryChange={handleCategoryChange}
